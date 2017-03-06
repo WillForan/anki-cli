@@ -13,7 +13,7 @@ MEDIAFOLDER="$HOME/Documents/Anki/User 1/collection.media"
 # remove any leading apostrophe -- useful to enter text that is a partial match for another selection
 # eg ''take  to not match 'take_a_screenshot'
 imgmenu() {
-  dmenu -is 300 -l 15 | 
+  dmenu -is 300 -l 15 $@ | 
   sed "1 s/^''//"
 }
 
@@ -30,7 +30,7 @@ front(){
   (
   clipboard
   clipboard -selection CLIPBOARD
-  ) | imgmenu
+  ) | imgmenu -p front
  )
  [ -z "$pick" ] && return 1
  echo $pick
@@ -50,7 +50,7 @@ pict_opts(){
         1i $screenshottext
         /^IMG:$/d;
         "|
-   imgmenu
+   imgmenu -p back
   )
 
   # killed dmenu
